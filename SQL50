@@ -1,0 +1,128 @@
+SELECT
+#1
+SELECT
+product_id
+FROM
+Products
+WHERE
+low_fats = 'Y' AND recyclable = 'Y'
+
+#2
+SELECT
+name
+FROM
+Customer
+WHERE
+referee_id !=2 or referee_id is null
+
+#3
+SELECT
+name, population, area
+FROM
+World
+WHERE
+area >= 3000000 or population >=25000000
+
+#4
+SELECT DISTINCT
+ author_id
+AS id
+FROM Views
+WHERE author_id = viewer_id
+ORDER BY id ASC
+
+#5
+SELECT
+tweet_id
+FROM TWeets
+Where
+LENGTH(content) > 15
+
+BASİC JOINS
+#1
+SELECt 
+EmployeeUNI.unique_id,
+Employees.name
+FROM Employees
+LEFT JOIN EMployeeUNI ON employees.id =
+EmployeeUNI.id
+
+#2
+select
+P.product_name ,
+s.year ,
+s.price
+from 
+sales s
+left
+join
+product p
+on
+s.product_id =
+p.product_id
+
+#3
+select
+v.customer_id, 
+COUNT(*)
+as
+count_no_trans
+FROm Visits v
+LEFT JOIN Transactions t
+ON v.visit_id = t.visit_id
+WHERE t.transaction_id IS null
+group by
+v.customer_id
+
+#4
+SELECT t1.id
+FROM
+weather t1, weather t2
+where 
+datediff (t1.recordDate, t2.recordDate) = 1 And t1.temperature > t2.temperature
+
+#5
+select
+a.machine_id,
+round(
+(select avg(a1.timestamp)from activity a1
+where a1.activity_type = 'end' and a1.machine_id = 
+a.machine_id)-(select avg(a1.timestamp)from activity a1
+where a1.activity_type = 'start' and a1.machine_id = 
+a.machine_id),3) as
+processing_time
+from
+activity a
+group by
+a.machine_id
+
+#6
+select
+name, bonus
+from
+employee a1
+left join bonus a2
+on a1.empId = a2.empId
+Where
+bonus < 1000
+or bonus
+is null
+
+#7
+select
+students.student_id,
+students.student_name,
+subjects.subject_name,
+Count(Examinations.subject_name)
+as attended_exams
+from Students
+join Subjects
+left join Examinations
+on Students.student_id =
+Examinations.student_id
+and Subjects.subject_name =
+Examinations.subject_name
+group by Students.student_id,
+Subjects.subject_name
+order by student_id asc,
+subject_name asc
